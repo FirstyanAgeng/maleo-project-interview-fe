@@ -29,7 +29,9 @@ export default function AttendanceForm({
         headers: {
           "Content-Type": "application/json",
           ...(localStorage.getItem("access_token")
-            ? { Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+            ? {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+              }
             : {}),
         },
         body: JSON.stringify({
@@ -83,7 +85,7 @@ export default function AttendanceForm({
       <select
         value={student}
         onChange={(e) => setStudent(e.target.value)}
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
         required
       >
         <option value="">Select student</option>
@@ -97,13 +99,13 @@ export default function AttendanceForm({
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
         required
       />
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value)}
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
       >
         <option value="present">Present</option>
         <option value="absent">Absent</option>
@@ -112,7 +114,7 @@ export default function AttendanceForm({
       <button
         type="submit"
         disabled={loading}
-        className="w-full text-xs bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition-colors disabled:opacity-50"
+        className="w-full text-xs rounded-lg bg-emerald-600 px-4 py-2 text-white transition-colors hover:bg-emerald-500 disabled:opacity-50"
       >
         {loading ? "Saving..." : "Save"}
       </button>

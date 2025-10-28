@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AttendanceForm, AssignmentForm, GradeForm } from "../../components";
 import { authFetch } from "../../auth/AuthProvider";
@@ -37,8 +37,12 @@ type Profile = {
   role: string;
 };
 
-export default function SchoolDetail({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default function SchoolDetail({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
   const [school, setSchool] = useState<School | null>(null);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -95,11 +99,15 @@ export default function SchoolDetail({ params }: { params: { id: string } }) {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50 p-6">
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading school data...</p>
+      <main className="min-h-screen">
+        <div className="container-page py-6">
+          <div className="flex h-64 items-center justify-center">
+            <div className="text-center">
+              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-indigo-600"></div>
+              <p className="mt-4 text-zinc-600 dark:text-zinc-400">
+                Loading school data...
+              </p>
+            </div>
           </div>
         </div>
       </main>
@@ -108,45 +116,54 @@ export default function SchoolDetail({ params }: { params: { id: string } }) {
 
   if (error || !school) {
     return (
-      <main className="min-h-screen bg-gray-50 p-6">
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-          <strong>Error:</strong> {error || "Failed to load school"}
+      <main className="min-h-screen">
+        <div className="container-page py-6">
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-300">
+            <strong>Error:</strong> {error || "Failed to load school"}
+          </div>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">{school.name}</h1>
+      <div className="backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-zinc-900/60">
+        <div className="container-page py-6">
+          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+            {school.name}
+          </h1>
           {school.address && (
-            <p className="text-sm text-gray-600 mt-1">{school.address}</p>
+            <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              {school.address}
+            </p>
           )}
           {school.description && (
-            <p className="text-gray-700 mt-2">{school.description}</p>
+            <p className="mt-2 text-zinc-700 dark:text-zinc-300">
+              {school.description}
+            </p>
           )}
         </div>
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-200 to-transparent dark:via-zinc-800" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="container-page py-8">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-2xl border border-zinc-200/70 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">
+                <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                   Total Students
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
                   {totalStudents}
                 </p>
               </div>
-              <div className="bg-blue-100 p-3 rounded-full">
+              <div className="rounded-full bg-indigo-100 p-3 dark:bg-indigo-900/30">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="h-8 w-8 text-indigo-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -162,17 +179,19 @@ export default function SchoolDetail({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="rounded-2xl border border-zinc-200/70 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">Assignments</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                  Assignments
+                </p>
+                <p className="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
                   {totalAssignments}
                 </p>
               </div>
-              <div className="bg-green-100 p-3 rounded-full">
+              <div className="rounded-full bg-emerald-100 p-3 dark:bg-emerald-900/30">
                 <svg
-                  className="w-8 h-8 text-green-600"
+                  className="h-8 w-8 text-emerald-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -188,17 +207,19 @@ export default function SchoolDetail({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="rounded-2xl border border-zinc-200/70 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">Submissions</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                  Submissions
+                </p>
+                <p className="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
                   {totalSubmissions}
                 </p>
               </div>
-              <div className="bg-purple-100 p-3 rounded-full">
+              <div className="rounded-full bg-purple-100 p-3 dark:bg-purple-900/30">
                 <svg
-                  className="w-8 h-8 text-purple-600"
+                  className="h-8 w-8 text-purple-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -214,19 +235,19 @@ export default function SchoolDetail({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="rounded-2xl border border-zinc-200/70 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">
+                <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                   Average Grade
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
                   {avgGrade > 0 ? avgGrade.toFixed(1) : "N/A"}
                 </p>
               </div>
-              <div className="bg-yellow-100 p-3 rounded-full">
+              <div className="rounded-full bg-yellow-100 p-3 dark:bg-yellow-900/30">
                 <svg
-                  className="w-8 h-8 text-yellow-600"
+                  className="h-8 w-8 text-yellow-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -244,8 +265,8 @@ export default function SchoolDetail({ params }: { params: { id: string } }) {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-lg shadow mb-6">
-          <div className="border-b border-gray-200">
+        <div className="mb-6 overflow-hidden rounded-2xl border border-zinc-200/70 bg-white/70 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60">
+          <div className="border-b border-zinc-200 dark:border-zinc-800/60">
             <nav className="flex space-x-8 px-6" aria-label="Tabs">
               {[
                 { id: "overview", name: "Overview", count: null },

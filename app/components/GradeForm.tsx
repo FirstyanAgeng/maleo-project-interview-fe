@@ -56,7 +56,7 @@ export default function GradeForm({
   return (
     <form onSubmit={submit} className="space-y-2">
       <select
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
         value={submissionId}
         onChange={(e) => setSubmissionId(Number(e.target.value) || "")}
       >
@@ -68,7 +68,7 @@ export default function GradeForm({
         ))}
       </select>
       <input
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
         type="number"
         step="0.01"
         min="0"
@@ -78,7 +78,7 @@ export default function GradeForm({
         placeholder="Grade (0-100)"
       />
       <button
-        className="w-full text-xs bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition-colors disabled:opacity-50"
+        className="w-full text-xs rounded-lg bg-indigo-600 px-4 py-2 text-white transition-colors hover:bg-indigo-500 disabled:opacity-50"
         type="submit"
         disabled={loading}
       >
