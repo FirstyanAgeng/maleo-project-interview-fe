@@ -47,20 +47,20 @@ export default function AssignmentForm({
   return (
     <form onSubmit={submit} className="space-y-2">
       <input
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
         required
       />
       <input
-        className="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        className="w-full text-sm rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60"
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
       <button
-        className="w-full text-xs bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors disabled:opacity-50"
+        className="w-full text-xs rounded-lg bg-indigo-600 px-4 py-2 text-white transition-colors hover:bg-indigo-500 disabled:opacity-50"
         type="submit"
         disabled={loading}
       >

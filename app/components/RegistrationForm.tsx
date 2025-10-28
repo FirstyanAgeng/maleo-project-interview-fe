@@ -38,44 +38,47 @@ export default function RegistrationForm() {
   };
 
   return (
-    <form onSubmit={submit} className="max-w-md space-y-3">
+    <form onSubmit={submit} className="max-w-md space-y-4">
       <label className="block">
-        <span className="text-sm">Username</span>
+        <span className="text-sm text-zinc-700 dark:text-zinc-300">
+          Username
+        </span>
         <input
-          className="mt-1 block w-full rounded border p-2"
+          className="mt-1 block w-full rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 text-zinc-900 placeholder-zinc-400 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          autoComplete="username"
           required
         />
       </label>
 
       <label className="block">
-        <span className="text-sm">Email</span>
+        <span className="text-sm text-zinc-700 dark:text-zinc-300">Email</span>
         <input
-          className="mt-1 block w-full rounded border p-2"
+          className="mt-1 block w-full rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 text-zinc-900 placeholder-zinc-400 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
         />
       </label>
 
       <label className="block">
-        <span className="text-sm">Password</span>
+        <span className="text-sm text-zinc-700 dark:text-zinc-300">
+          Password
+        </span>
         <input
-          className="mt-1 block w-full rounded border p-2"
+          className="mt-1 block w-full rounded-lg border border-zinc-300/70 bg-white/70 px-3 py-2 text-zinc-900 placeholder-zinc-400 shadow-sm outline-none ring-0 transition focus:border-indigo-500 focus:bg-white dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="new-password"
           required
         />
       </label>
 
       <div className="flex items-center gap-2">
-        <button
-          type="submit"
-          className="rounded bg-indigo-600 px-4 py-2 text-white disabled:opacity-60"
-          disabled={loading}
-        >
+        <button type="submit" className="btn-primary" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </button>
         {msg && <div className="text-sm text-red-600">{msg}</div>}

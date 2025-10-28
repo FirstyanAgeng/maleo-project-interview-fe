@@ -6,43 +6,48 @@ import { useAuth } from "../auth/AuthProvider";
 export default function NavBar() {
   const { token, logout } = useAuth();
   return (
-    <nav className="w-full bg-white shadow p-4 flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <Link href="/" className="font-bold">
-          SchoolApp
-        </Link>
-        <Link href="/schools" className="text-sm text-gray-600 hover:underline">
-          Schools
-        </Link>
-        <Link href="/student/dashboard" className="text-sm text-gray-600 hover:underline">
-          Student Dashboard
-        </Link>
-      </div>
-      <div className="flex items-center gap-3">
-        {token ? (
-          <button
-            onClick={logout}
-            className="px-3 py-1 rounded bg-red-500 text-white"
+    <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-zinc-900/60">
+      <nav className="container-page flex h-16 items-center justify-between">
+        <div className="flex items-center gap-6">
+          <Link
+            href="/"
+            className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
           >
-            Logout
-          </button>
-        ) : (
-          <>
+            SchoolApp
+          </Link>
+          <div className="hidden md:flex items-center gap-4">
             <Link
-              href="/register"
-              className="px-3 py-1 rounded border border-gray-300 text-gray-700 hover:bg-gray-100"
+              href="/schools"
+              className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
-              Register
+              Schools
             </Link>
             <Link
-              href="/login"
-              className="px-3 py-1 rounded bg-blue-500 text-white"
+              href="/student/dashboard"
+              className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
-              Login
+              Student Dashboard
             </Link>
-          </>
-        )}
-      </div>
-    </nav>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          {token ? (
+            <button onClick={logout} className="btn-secondary">
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link href="/register" className="btn-secondary">
+                Register
+              </Link>
+              <Link href="/login" className="btn-primary">
+                Login
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-200 to-transparent dark:via-zinc-800" />
+    </header>
   );
 }
